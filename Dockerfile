@@ -6,7 +6,8 @@ RUN go mod download
 
 COPY *.go /src/
 COPY cmd/kap/*.go /src/cmd/kap/
-RUN CGO_ENABLED=0 go build -o kap ./cmd/kap
+ARG KAP_VERSION
+RUN CGO_ENABLED=0 go build -o kap -ldflags "-X main.version=${KAP_VERSION}" ./cmd/kap
 
 FROM gcr.io/distroless/static
 
