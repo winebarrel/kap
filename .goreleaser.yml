@@ -11,11 +11,8 @@ builds:
 checksum:
   name_template: "checksums.txt"
 dockers_v2:
-  - image:
+  - images:
       - "gcr.io/winebarrel/kap"
     tags:
       - "{{ .Version }}"
       - latest
-    platforms:
-      - linux/amd64
-      - linux/arm64
