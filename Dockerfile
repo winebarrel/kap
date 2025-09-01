@@ -5,7 +5,7 @@ COPY go.mod go.sum /src/
 RUN go mod download
 
 COPY *.go /src/
-COPY cmd /src/cmd
+COPY cmd/kap/*.go /src/cmd/kap/
 RUN CGO_ENABLED=0 go build -o kap ./cmd/kap
 
 FROM gcr.io/distroless/static
