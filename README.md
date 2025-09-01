@@ -11,15 +11,15 @@ Usage: kap --backend=BACKEND --port=UINT --key=STRING --secret=STRING [flags]
 
 Flags:
   -h, --help               Show help.
-  -b, --backend=BACKEND    Backend URL ($GAP_BACKEND).
-  -p, --port=UINT          Listening port ($GAP_PORT).
-  -k, --key=STRING         Auth key name ($GAP_KEY).
-  -s, --secret=STRING      Auth secret value ($GAP_SECRET).
+  -b, --backend=BACKEND    Backend URL ($KAP_BACKEND).
+  -p, --port=UINT          Listening port ($KAP_PORT).
+  -k, --key=STRING         Auth key name ($KAP_KEY).
+  -s, --secret=STRING      Auth secret value ($KAP_SECRET).
       --version
 ```
 
 ```sh
-$ export GAP_SECRET=my-secret
+$ export KAP_SECRET=my-secret
 $ go run ./cmd/kap -p 8080 -b https://example.com -k my-key
 ```
 
