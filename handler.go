@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httputil"
+	"slices"
 )
 
 func HandlePing(w http.ResponseWriter, r *http.Request) {
@@ -36,7 +37,7 @@ func (h *AuthHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		secret = r.URL.Query().Get(h.Options.Key)
 	}
 
-	if secret != h.Options.Secret {
+	if !slices.Contains(h.Options.Secret, secret) {
 		http.Error(w, "forbidden", http.StatusForbidden)
 		return
 	}
