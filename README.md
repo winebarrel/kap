@@ -44,7 +44,7 @@ $ go run ./cmd/kap -p 8080 -b https://example.com -k my-key
 ### Run with Docker
 
 ```
-% cat kap.env
+$ cat kap.env
 KAP_PORT=8080
 KAP_KEY=my-key
 KAP_SECRET=my-secret
