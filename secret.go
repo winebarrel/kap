@@ -9,16 +9,6 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-var (
-	bcryptPrefixs = []string{
-		"$2$",
-		"$2a$",
-		"$2x$",
-		"$2y$",
-		"$2b$",
-	}
-)
-
 type Secrets []Secret
 
 func (ss Secrets) Has(secret string) bool {
@@ -46,7 +36,9 @@ func (s *Secret) Decode(ctx *kong.DecodeContext) error {
 		return errors.New("cannot set secret value to empty string")
 	}
 
-	if slices.ContainsFunc(bcryptPrefixs, func(prefix string) bool { return strings.HasPrefix(secret, prefix) }) {
+	hasPrefix := func(prefix string) bool { return strings.HasPrefix(secret, prefix) }
+
+	if slices.ContainsFunc([]string{"$2$", "$2a$", "$2x$", "$2y$", "$2b$"}, hasPrefix) {
 		s.equal = func(input string) bool {
 			return bcrypt.CompareHashAndPassword([]byte(secret), []byte(input)) == nil
 		}
