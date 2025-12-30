@@ -5,6 +5,7 @@ go 1.24.5
 require (
 	github.com/alecthomas/kong v1.13.0
 	github.com/stretchr/testify v1.11.1
+	golang.org/x/crypto v0.46.0
 )
 
 require (
