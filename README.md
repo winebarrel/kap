@@ -40,3 +40,14 @@ $ curl -H 'my-key: my-secret' localhost:8080
 $ export KAP_SECRET=$(htpasswd -nbB '' my-secret | cut -b 2-)
 $ go run ./cmd/kap -p 8080 -b https://example.com -k my-key
 ```
+
+### Run with Docker
+
+```
+% cat kap.env
+KAP_PORT=8080
+KAP_KEY=my-key
+KAP_SECRET=my-secret
+KAP_BACKEND=https://example.com
+$ docker run --rm -p 8080:8080 --env-file kap.env ghcr.io/winebarrel/kap
+```
