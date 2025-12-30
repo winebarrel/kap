@@ -91,8 +91,8 @@ func TestSecretHasWithHash(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(fmt.Sprintf("%v has '%s' -> %v", tt.secrets, tt.input, tt.expected), func(t *testing.T) {
 			assert := assert.New(t)
-			secret := testMakeSecrets(t, tt.secrets)
-			assert.Equal(tt.expected, secret.Has(tt.input))
+			secrets := testMakeSecrets(t, tt.secrets)
+			assert.Equal(tt.expected, secrets.Has(tt.input))
 		})
 	}
 }
