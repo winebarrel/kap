@@ -210,7 +210,7 @@ func TestAuthHandlerMultiHashedKeyWithHeader(t *testing.T) {
 			Key: "my-key",
 			Secret: []string{
 				"$2y$05$NB57z9o7bUjGSAnaLACGreXbK8lZzyKZFvdKHIsiEMwTgDNzNmeQ.", // my-secret
-				"$2y$05$zxOnauk.m1RI3PT/6tKImeIi7WinlJzEI6F.fLIe4Z1fXYU1rLYTm", //"my-secret2",
+				"$2y$05$zxOnauk.m1RI3PT/6tKImeIi7WinlJzEI6F.fLIe4Z1fXYU1rLYTm", // my-secret2
 			},
 		},
 		Proxy: func(w http.ResponseWriter, r *http.Request) {
