@@ -25,7 +25,7 @@ func TestAuthHandlerWithHeader(t *testing.T) {
 	handler := kap.AuthHandler{
 		Options: &kap.Options{
 			Key:    "my-key",
-			Secret: []string{"my-secret"},
+			Secret: testMakeSecrets(t, []string{"my-secret"}),
 		},
 		Proxy: func(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprint(w, "proxied")
@@ -46,7 +46,7 @@ func TestAuthHandlerWitQuery(t *testing.T) {
 	handler := kap.AuthHandler{
 		Options: &kap.Options{
 			Key:    "my-key",
-			Secret: []string{"my-secret"},
+			Secret: testMakeSecrets(t, []string{"my-secret"}),
 		},
 		Proxy: func(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprint(w, "proxied")
@@ -69,7 +69,7 @@ func TestAuthHandlerMultiKeyWithHeader(t *testing.T) {
 	handler := kap.AuthHandler{
 		Options: &kap.Options{
 			Key:    "my-key",
-			Secret: []string{"my-secret", "my-secret2"},
+			Secret: testMakeSecrets(t, []string{"my-secret", "my-secret2"}),
 		},
 		Proxy: func(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprint(w, "proxied")
@@ -113,7 +113,7 @@ func TestAuthHandlerMultiKeyWithQuery(t *testing.T) {
 	handler := kap.AuthHandler{
 		Options: &kap.Options{
 			Key:    "my-key",
-			Secret: []string{"my-secret", "my-secret2"},
+			Secret: testMakeSecrets(t, []string{"my-secret", "my-secret2"}),
 		},
 		Proxy: func(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprint(w, "proxied")
@@ -159,7 +159,7 @@ func TestAuthHandlerForbidden(t *testing.T) {
 	handler := kap.AuthHandler{
 		Options: &kap.Options{
 			Key:    "my-key",
-			Secret: []string{"my-secret"},
+			Secret: testMakeSecrets(t, []string{"my-secret"}),
 		},
 		Proxy: func(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprint(w, "proxied")
@@ -208,10 +208,10 @@ func TestAuthHandlerMultiHashedKeyWithHeader(t *testing.T) {
 	handler := kap.AuthHandler{
 		Options: &kap.Options{
 			Key: "my-key",
-			Secret: []string{
+			Secret: testMakeSecrets(t, []string{
 				"$2y$05$NB57z9o7bUjGSAnaLACGreXbK8lZzyKZFvdKHIsiEMwTgDNzNmeQ.", // my-secret
 				"$2y$05$zxOnauk.m1RI3PT/6tKImeIi7WinlJzEI6F.fLIe4Z1fXYU1rLYTm", // my-secret2
-			},
+			}),
 		},
 		Proxy: func(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprint(w, "proxied")
@@ -255,10 +255,10 @@ func TestAuthHandlerMultiHashedKeyWithQuery(t *testing.T) {
 	handler := kap.AuthHandler{
 		Options: &kap.Options{
 			Key: "my-key",
-			Secret: []string{
+			Secret: testMakeSecrets(t, []string{
 				"$2y$05$WfTzW7zy2I3mba4zszwSm.TjURhBMnAnvzv3upArZ7iD58JaHOU0.", // my-secret
 				"$2y$05$T.j4bBTUXb3DWSN1PAvVBu09y99Y0RrcH8uBRif45q1XzkZ4yvcrS", // my-secret2
-			},
+			}),
 		},
 		Proxy: func(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprint(w, "proxied")
@@ -304,9 +304,9 @@ func TestAuthHandlerHashedKeyForbidden(t *testing.T) {
 	handler := kap.AuthHandler{
 		Options: &kap.Options{
 			Key: "my-key",
-			Secret: []string{
+			Secret: testMakeSecrets(t, []string{
 				"$2y$05$00Q8iI4Z0/bOEGmNArXqo.pJ1WaY9umI0K1vdr5p0fxD0QijVWR8C", // my-secret
-			},
+			}),
 		},
 		Proxy: func(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprint(w, "proxied")

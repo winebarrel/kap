@@ -2,11 +2,24 @@ package kap_test
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 
+	"github.com/alecthomas/kong"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"github.com/winebarrel/kap"
 )
+
+func testMakeSecrets(t *testing.T, secrets []string) kap.Secrets {
+	t.Helper()
+	require := require.New(t)
+	var cli struct{ Secret kap.Secrets }
+	p := kong.Must(&cli)
+	_, err := p.Parse([]string{"--secret", strings.Join(secrets, ",")})
+	require.NoError(err)
+	return cli.Secret
+}
 
 func TestSecretHas(t *testing.T) {
 	tests := []struct {
@@ -34,8 +47,8 @@ func TestSecretHas(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(fmt.Sprintf("%v has '%s' -> %v", tt.secrets, tt.input, tt.expected), func(t *testing.T) {
 			assert := assert.New(t)
-			secret := kap.Secret(tt.secrets)
-			assert.Equal(tt.expected, secret.Has(tt.input))
+			secrets := testMakeSecrets(t, tt.secrets)
+			assert.Equal(tt.expected, secrets.Has(tt.input))
 		})
 	}
 }
@@ -78,8 +91,17 @@ func TestSecretHasWithHash(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(fmt.Sprintf("%v has '%s' -> %v", tt.secrets, tt.input, tt.expected), func(t *testing.T) {
 			assert := assert.New(t)
-			secret := kap.Secret(tt.secrets)
+			secret := testMakeSecrets(t, tt.secrets)
 			assert.Equal(tt.expected, secret.Has(tt.input))
 		})
 	}
+}
+
+func TestSecretNotAllowEmptyString(t *testing.T) {
+	assert := assert.New(t)
+	secrets := []string{"foo", "", "zoo"}
+	var cli struct{ Secret kap.Secrets }
+	p := kong.Must(&cli)
+	_, err := p.Parse([]string{"--secret", strings.Join(secrets, ",")})
+	assert.ErrorContains(err, "cannot set secret value to empty string")
 }
