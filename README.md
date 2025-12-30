@@ -51,4 +51,3 @@ KAP_SECRET=my-secret
 KAP_BACKEND=https://example.com
 $ docker run --rm -p 8080:8080 --env-file kap.env ghcr.io/winebarrel/kap
 ```
-
