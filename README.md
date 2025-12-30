@@ -33,3 +33,10 @@ $ curl -H 'my-key: my-secret' localhost:8080
     <title>Example Domain</title>
 ...
 ```
+
+## Use hashed secret
+
+```
+$ export KAP_SECRET=$(htpasswd -nbB '' my-secret | cut -b 2-)
+$ go run ./cmd/kap -p 8080 -b https://example.com -k my-key
+```
