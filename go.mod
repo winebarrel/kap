@@ -3,7 +3,7 @@ module github.com/winebarrel/kap
 go 1.24.5
 
 require (
-	github.com/alecthomas/kong v1.13.0
+	github.com/alecthomas/kong v1.15.0
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/crypto v0.47.0
 )
